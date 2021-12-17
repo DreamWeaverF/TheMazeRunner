@@ -1,0 +1,61 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "56677ec3-7bfe-637f-52fd-c0bb83291553": {
+      "ProjectGuid": "56677ec3-7bfe-637f-52fd-c0bb83291553",
+      "DisplayName": "ServerRpc",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    },
+    "09bdfb62-d96f-a836-a68c-847427a7456e": {
+      "ProjectGuid": "09bdfb62-d96f-a836-a68c-847427a7456e",
+      "DisplayName": "ServerMap",
+      "ColorIndex": 1
+    },
+    "e335c1c0-164f-1039-f400-c7fc9dca39ab": {
+      "ProjectGuid": "e335c1c0-164f-1039-f400-c7fc9dca39ab",
+      "DisplayName": "Client",
+      "ColorIndex": 2
+    },
+    "1e0d9b67-e549-c634-f228-4e2343ff4613": {
+      "ProjectGuid": "1e0d9b67-e549-c634-f228-4e2343ff4613",
+      "DisplayName": "Database",
+      "ColorIndex": 3
+    },
+    "cd8c9303-404b-fb8d-6b9b-21988d5cac0a": {
+      "ProjectGuid": "cd8c9303-404b-fb8d-6b9b-21988d5cac0a",
+      "DisplayName": "Assembly-CSharp",
+      "ColorIndex": 4
+    },
+    "6e1bf4cd-e10b-5b53-bc62-bfe4dc5e7f29": {
+      "ProjectGuid": "6e1bf4cd-e10b-5b53-bc62-bfe4dc5e7f29",
+      "DisplayName": "UnityMono",
+      "ColorIndex": 5
+    },
+    "84b17d6d-76a9-1856-5df6-bcd3fe192693": {
+      "ProjectGuid": "84b17d6d-76a9-1856-5df6-bcd3fe192693",
+      "DisplayName": "MessagePack",
+      "ColorIndex": 6
+    },
+    "fbad5cea-e3a7-5984-b710-3b26bb877006": {
+      "ProjectGuid": "fbad5cea-e3a7-5984-b710-3b26bb877006",
+      "DisplayName": "MessagePack.Annotations",
+      "ColorIndex": 7
+    },
+    "9e7d9c35-5fa6-40dc-1cec-fd2effe0db85": {
+      "ProjectGuid": "9e7d9c35-5fa6-40dc-1cec-fd2effe0db85",
+      "DisplayName": "ServerLogin",
+      "ColorIndex": 8
+    },
+    "1b023753-538b-a407-5382-7f26cc68cb6b": {
+      "ProjectGuid": "1b023753-538b-a407-5382-7f26cc68cb6b",
+      "DisplayName": "UnityBase",
+      "ColorIndex": 9
+    }
+  },
+  "NextColorIndex": 10
+}

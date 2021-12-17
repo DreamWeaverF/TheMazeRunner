@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2f11465e-1945-4161-bfd7-8e9e46ba44cc": {
+      "ProjectGuid": "2f11465e-1945-4161-bfd7-8e9e46ba44cc",
+      "DisplayName": "ServerApp",
+      "ColorIndex": 0
+    },
+    "1e0d9b67-e549-c634-f228-4e2343ff4613": {
+      "ProjectGuid": "1e0d9b67-e549-c634-f228-4e2343ff4613",
+      "DisplayName": "Database",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "杂项文件",
+      "ColorIndex": -1
+    },
+    "fbad5cea-e3a7-5984-b710-3b26bb877006": {
+      "ProjectGuid": "fbad5cea-e3a7-5984-b710-3b26bb877006",
+      "DisplayName": "MessagePack.Annotations",
+      "ColorIndex": 2
+    },
+    "84b17d6d-76a9-1856-5df6-bcd3fe192693": {
+      "ProjectGuid": "84b17d6d-76a9-1856-5df6-bcd3fe192693",
+      "DisplayName": "MessagePack",
+      "ColorIndex": 3
+    },
+    "9e7d9c35-5fa6-40dc-1cec-fd2effe0db85": {
+      "ProjectGuid": "9e7d9c35-5fa6-40dc-1cec-fd2effe0db85",
+      "DisplayName": "ServerLogin",
+      "ColorIndex": 4
+    }
+  },
+  "NextColorIndex": 5
+}
