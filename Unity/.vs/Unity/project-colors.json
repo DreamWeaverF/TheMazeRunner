@@ -55,7 +55,17 @@
       "ProjectGuid": "1b023753-538b-a407-5382-7f26cc68cb6b",
       "DisplayName": "UnityBase",
       "ColorIndex": 9
+    },
+    "6311e6c6-0a20-383b-320b-694068de37a5": {
+      "ProjectGuid": "6311e6c6-0a20-383b-320b-694068de37a5",
+      "DisplayName": "Assembly-CSharp-Editor",
+      "ColorIndex": 10
+    },
+    "702a92b6-f3ee-1d07-a8ab-b292246e19c5": {
+      "ProjectGuid": "702a92b6-f3ee-1d07-a8ab-b292246e19c5",
+      "DisplayName": "Editor",
+      "ColorIndex": 11
     }
   },
-  "NextColorIndex": 10
+  "NextColorIndex": 12
 }

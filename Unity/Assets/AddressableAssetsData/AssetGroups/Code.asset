@@ -17,11 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 2f325cb781b13164a9637680c0b946d0
   m_SerializeEntries:
-  - m_GUID: b06597b895152df49a2d24a56288f6d1
+  - m_GUID: df03bffe35cd8a94c942d20813db3cad
     m_Address: Client.dll
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 0f541c15da661fa40ac6ba722b55e99e
+  - m_GUID: b6ccb9a312d954645b802689c16fb877
     m_Address: Client.pdb
     m_ReadOnly: 0
     m_SerializedLabels: []

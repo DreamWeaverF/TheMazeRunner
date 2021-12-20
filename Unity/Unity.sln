@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePack", "MessagePack.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityBase", "UnityBase.csproj", "{1B023753-538B-A407-5382-7F26CC68CB6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor.csproj", "{702A92B6-F3EE-1D07-A8AB-B292246E19C5}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePack.Annotations", "MessagePack.Annotations.csproj", "{FBAD5CEA-E3A7-5984-B710-3B26BB877006}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{1B023753-538B-A407-5382-7F26CC68CB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B023753-538B-A407-5382-7F26CC68CB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B023753-538B-A407-5382-7F26CC68CB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{702A92B6-F3EE-1D07-A8AB-B292246E19C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{702A92B6-F3EE-1D07-A8AB-B292246E19C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{702A92B6-F3EE-1D07-A8AB-B292246E19C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{702A92B6-F3EE-1D07-A8AB-B292246E19C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBAD5CEA-E3A7-5984-B710-3B26BB877006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBAD5CEA-E3A7-5984-B710-3B26BB877006}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBAD5CEA-E3A7-5984-B710-3B26BB877006}.Release|Any CPU.ActiveCfg = Release|Any CPU
