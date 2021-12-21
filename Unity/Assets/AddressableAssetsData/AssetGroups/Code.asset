@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 2f325cb781b13164a9637680c0b946d0
-  m_SerializeEntries:
-  - m_GUID: df03bffe35cd8a94c942d20813db3cad
-    m_Address: Client.dll
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b6ccb9a312d954645b802689c16fb877
-    m_Address: Client.pdb
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8c06f2373a2c74041ac5e086d4876c89, type: 2}
   m_SchemaSet:
