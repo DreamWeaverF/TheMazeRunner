@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserRespository", "UserResp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogServer", "LogServer.csproj", "{254C9E41-D0E6-D710-45C7-16DA6B8E1CCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginServer", "LoginServer.csproj", "{B17ACDBA-8390-6DDF-1D24-B4AE3463BEE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{254C9E41-D0E6-D710-45C7-16DA6B8E1CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{254C9E41-D0E6-D710-45C7-16DA6B8E1CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{254C9E41-D0E6-D710-45C7-16DA6B8E1CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17ACDBA-8390-6DDF-1D24-B4AE3463BEE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17ACDBA-8390-6DDF-1D24-B4AE3463BEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17ACDBA-8390-6DDF-1D24-B4AE3463BEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17ACDBA-8390-6DDF-1D24-B4AE3463BEE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{BF4422FB-765A-753C-384A-53A3EDE0FBA3} = {95B39F92-84D8-4F08-8988-72C84D4B6B82}
 		{ED829753-704D-8AE6-948E-55DB95CC710D} = {95B39F92-84D8-4F08-8988-72C84D4B6B82}
 		{254C9E41-D0E6-D710-45C7-16DA6B8E1CCC} = {95B39F92-84D8-4F08-8988-72C84D4B6B82}
+		{B17ACDBA-8390-6DDF-1D24-B4AE3463BEE0} = {95B39F92-84D8-4F08-8988-72C84D4B6B82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CF73508-EAA4-4FC0-BE48-7255730AB6C4}
