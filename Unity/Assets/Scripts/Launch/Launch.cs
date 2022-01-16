@@ -1,7 +1,11 @@
+using ET;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TheMazeRunner
 {
@@ -29,88 +33,76 @@ namespace TheMazeRunner
 
     public class Launch : MonoBehaviour
     {
-
-
         public LAUNCH_ENVIRONMENT Environment;
         public LAUNCH_MODEL Model;
 
-        void Start()
+        IEnumerator Start()
         {
-            switch (Model)
+            AsyncOperation _loadOpear = SceneManager.LoadSceneAsync("LoginServer",LoadSceneMode.Additive);
+            yield return _loadOpear;
+
+            yield return 1000;
+
+            _loadOpear = SceneManager.LoadSceneAsync("Client", LoadSceneMode.Additive);
+            yield return _loadOpear;
+            //switch (Model)
+            //{
+            //    case LAUNCH_MODEL.CLIENT:
+            //        LoadScene("Client");
+            //        break;
+            //    case LAUNCH_MODEL.LOGIN_SERVER:
+            //        LoadScene("LoginServer");
+            //        break;
+            //    case LAUNCH_MODEL.GATE_SERVER:
+            //        LoadScene("GateServer");
+            //        break;
+            //    case LAUNCH_MODEL.CENTER_SERVER:
+            //        LoadScene("CenterServer");
+            //        break;
+            //    case LAUNCH_MODEL.MAP_SERVER:
+            //        LoadScene("MapServer");
+            //        break;
+            //    case LAUNCH_MODEL.USER_SERVER:
+            //        LoadScene("UserServer");
+            //        break;
+            //    case LAUNCH_MODEL.MAIL_SERVER:
+            //        LoadScene("MailServer");
+            //        break;
+            //    case LAUNCH_MODEL.CHAT_SERVER:
+            //        LoadScene("ChatServer");
+            //        break;
+            //    case LAUNCH_MODEL.TOTAL:
+            //        //LoadScene("CenterServer");
+            //        //LoadScene("UserServer");
+            //        //LoadScene("MailServer");
+            //        //LoadScene("ChatServer");
+            //        //LoadScene("MapServer");
+            //        //LoadScene("GateServer");
+            //        LoadScene(new List<string> { 
+            //            "LoginServer",
+            //            "Client" 
+            //        });
+            //        break;
+            //}
+        }
+
+        IEnumerator LoadScene(string _fileName)
+        {
+            AsyncOperation _loadOpear = SceneManager.LoadSceneAsync(_fileName);
+            yield return _loadOpear;
+        }
+
+        IEnumerator LoadScene(List<string> _fileNameList)
+        {
+            for(int _index = 0; _index < _fileNameList.Count; _index++)
             {
-                case LAUNCH_MODEL.CLIENT:
-                    StartAssemblyFile("Client");
-                    break;
-                case LAUNCH_MODEL.LOGIN_SERVER:
-                    StartAssemblyFile("LoginServer");
-                    break;
-                case LAUNCH_MODEL.GATE_SERVER:
-                    StartAssemblyFile("GateServer");
-                    break;
-                case LAUNCH_MODEL.CENTER_SERVER:
-                    StartAssemblyFile("CenterServer");
-                    break;
-                case LAUNCH_MODEL.MAP_SERVER:
-                    StartAssemblyFile("MapServer");
-                    break;
-                case LAUNCH_MODEL.USER_SERVER:
-                    StartAssemblyFile("UserServer");
-                    break;
-                case LAUNCH_MODEL.MAIL_SERVER:
-                    StartAssemblyFile("MailServer");
-                    break;
-                case LAUNCH_MODEL.CHAT_SERVER:
-                    StartAssemblyFile("ChatServer");
-                    break;
-                case LAUNCH_MODEL.TOTAL:
-                    StartAssemblyFile("CenterServer");
-                    StartAssemblyFile("UserServer");
-                    StartAssemblyFile("MailServer");
-                    StartAssemblyFile("ChatServer");
-                    StartAssemblyFile("MapServer");
-                    StartAssemblyFile("GateServer");
-                    StartAssemblyFile("LoginServer");
-                    StartAssemblyFile("Client");
-                    break;
+                yield return LoadScene(_fileNameList[_index]);
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
-
-        }
-
-        private void StartAssemblyFile(string _fileName)
-        {
-            byte[] _dllByte = default;
-            byte[] _pdbByte = default;
-            switch (Environment)
-            {
-                case LAUNCH_ENVIRONMENT.DEV:
-                    _dllByte = File.ReadAllBytes(string.Format(PathHelper.DevDllFilePath, _fileName));
-                    _pdbByte = File.ReadAllBytes(string.Format(PathHelper.DevPDBFilePath, _fileName));
-                    break;
-                case LAUNCH_ENVIRONMENT.QA:
-                case LAUNCH_ENVIRONMENT.RELEASE:
-                    _dllByte = File.ReadAllBytes(string.Format(PathHelper.ReleaseDllFilePath, _fileName));
-                    _pdbByte = File.ReadAllBytes(string.Format(PathHelper.ReleasePDBFilePath, _fileName));
-                    break;
-            }
-            if(_dllByte == default)
-            {
-                LogHelper.LogError($"获取Dll失败:{_fileName}");
-                return;
-            }
-            if (_pdbByte == default)
-            {
-                LogHelper.LogError($"获取PDB失败:{_fileName}");
-                return;
-            }
-            Assembly _assembly = Assembly.Load(_dllByte, _pdbByte);
-            Type _launch = _assembly.GetType($"TheMazeRunner.{_fileName}Launch");
-            MethodBase _method = _launch.GetMethod("Start");
-            _method.Invoke(_launch, new object[] { Environment });
+            ThreadSynchronizationContext.Instance.Update();
         }
     }
 }

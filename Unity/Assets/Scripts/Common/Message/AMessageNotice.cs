@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace TheMazeRunner
 {
-    [MessagePackObject]
-    public abstract class AMessageNotice
+    public abstract class AMessageNotice : IMessage
     {
         [Key(1000)]
         public ushort Opcode { get; set; }
