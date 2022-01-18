@@ -7,8 +7,9 @@ namespace TheMazeRunner
     public class ClientTest : MonoBehaviour
     {
         [SerializeField]
-        private MessageResponseLoginHandler responLoginHandler;
-        // Start is called before the first frame update
+        private MessageRequestSenderLogin responLoginHandler;
+        [SerializeField]
+        private DatabaseTableRank databaseTableTest;
         void Start()
         {
             
@@ -17,7 +18,7 @@ namespace TheMazeRunner
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 onClick();
             }
@@ -25,6 +26,7 @@ namespace TheMazeRunner
 
         async void onClick()
         {
+            long _count = await databaseTableTest.SelectCountFromTableName();
             MessageResponseLogin _response = await responLoginHandler.OnSendMessage(new MessageRequestLogin()
             {
                 UserName = "xxx",

@@ -12,19 +12,26 @@ namespace TheMazeRunner
     public class NetworkController : MonoBehaviour
     {
         [SerializeField]
-        private List<AMessageRequestSO> messageRequestSOs;
+        private List<AMessageRequestSenderSO> messageRequestSenderSOs;
         [SerializeField]
-        private List<AMessageResponseSO> messageResponseSOs;
-        //[SerializeField]
-        //private List<IMessageRequestSO> messageRequestSOs = new List<IMessageRequestSO>();
-        // Start is called before the first frame update
+        private List<AMessageRequestHandlerSO> messageRequestHandlerSOs;
+
+        [SerializeField]
+        private List<AMessageNoticeSenderSO> messageNoticeSenderSOs;
+        [SerializeField]
+        private List<AMessageNoticeHandlerSO> messageNoticeHandlerSOs;
 
         [SerializeField]
         private bool IsServer;
 
-        private Dictionary<Type,AMessageRequestSO> messageRequestHandlers = new Dictionary<Type, AMessageRequestSO>();
+        private Dictionary<Type, AMessageRequestSenderSO> messageRequestSenders = new Dictionary<Type, AMessageRequestSenderSO>();
 
-        private Dictionary<Type, AMessageResponseSO> messageResponseHandlers = new Dictionary<Type, AMessageResponseSO>();
+        private Dictionary<Type, AMessageRequestHandlerSO> messageRequestHandlers = new Dictionary<Type, AMessageRequestHandlerSO>();
+
+        private Dictionary<Type, AMessageNoticeSenderSO> messageNoticeSenders = new Dictionary<Type, AMessageNoticeSenderSO>();
+
+        private Dictionary<Type, AMessageNoticeHandlerSO> messageNoticeHandlers = new Dictionary<Type, AMessageNoticeHandlerSO>();
+
 
         private AService service;
         void Start()
@@ -41,32 +48,55 @@ namespace TheMazeRunner
             service.ReadCallback += OnReadMessage;
             service.AcceptCallback += OnAccept;
 
-            if (messageRequestSOs.Count > 0)
+            if (messageRequestSenderSOs.Count > 0)
             {
-                for (int i = 0; i < messageRequestSOs.Count; i++)
+                for (int i = 0; i < messageRequestSenderSOs.Count; i++)
                 {
-                    messageRequestSOs[i].AddListener(OnSendMessage);
-                    messageRequestHandlers.Add(messageRequestSOs[i].GetRequestType(), messageRequestSOs[i]);
+                    messageRequestSenderSOs[i].SendMessageEvent += OnSendMessage;
+                    messageRequestSenders.Add(messageRequestSenderSOs[i].GetResponseType(), messageRequestSenderSOs[i]);
                 }
             }
 
-            if (messageResponseSOs.Count > 0)
+            if (messageRequestHandlerSOs.Count > 0)
             {
-                for (int i = 0; i < messageResponseSOs.Count; i++)
+                for (int i = 0; i < messageRequestHandlerSOs.Count; i++)
                 {
-                    messageResponseSOs[i].AddListener(OnSendMessage);
-                    messageResponseHandlers.Add(messageResponseSOs[i].GetResponseType(), messageResponseSOs[i]);
+                    messageRequestHandlers.Add(messageRequestHandlerSOs[i].GetRequestType(), messageRequestHandlerSOs[i]);
+                }
+            }
+
+            if (messageNoticeSenderSOs.Count > 0)
+            {
+                for (int i = 0; i < messageNoticeSenderSOs.Count; i++)
+                {
+                    messageNoticeSenderSOs[i].SendMessageEvent += OnSendMessage;
+                    messageNoticeSenders.Add(messageNoticeSenderSOs[i].GetNoticeType(), messageNoticeSenderSOs[i]);
+                }
+            }
+
+            if (messageNoticeHandlerSOs.Count > 0)
+            {
+                for (int i = 0; i < messageNoticeHandlerSOs.Count; i++)
+                {
+                    messageNoticeHandlers.Add(messageNoticeHandlerSOs[i].GetNoticeType(), messageNoticeHandlerSOs[i]);
                 }
             }
         }
 
         void OnDestroy()
         {
-            for (int i = 0; i < messageRequestSOs.Count; i++)
+            for (int i = 0; i < messageRequestSenderSOs.Count; i++)
             {
-                messageRequestSOs[i].RemoveListener(OnSendMessage);
+                messageRequestSenderSOs[i].SendMessageEvent -= OnSendMessage;
             }
+            messageRequestSenderSOs.Clear();
             messageRequestHandlers.Clear();
+            for (int i = 0; i < messageNoticeSenderSOs.Count; i++)
+            {
+                messageNoticeSenderSOs[i].SendMessageEvent -= OnSendMessage;
+            }
+            messageNoticeSenders.Clear();
+            messageNoticeHandlers.Clear();
         }
 
         // Update is called once per frame
@@ -80,18 +110,15 @@ namespace TheMazeRunner
             //Log.Debug($"ÍøÂçÍæ¼ÒÁ¬½Ó {_ipEndPoint}");
         }
 
-        private async void OnSendMessage(IMessage _rerquest)
+        private async void OnSendMessage(IMessage _message)
         {
             IPEndPoint _realIPEndPoint = NetworkHelper.ToIPEndPoint("127.0.0.1", 10002);
             long _channelId = RandomHelper.RandInt64();
             service.GetOrCreate(_channelId, _realIPEndPoint);
 
             MemoryStream _memoryStream = new MemoryStream();
-            await MessagePackSerializer.SerializeAsync(_memoryStream, _rerquest);
+            await MessagePackSerializer.SerializeAsync(_memoryStream, _message);
             _memoryStream.Seek(0, SeekOrigin.Begin);
-
-            //object _message = MessagePackSerializer.Deserialize<IMessage>(_memoryStream);
-
             service.SendStream(_channelId, 0, _memoryStream);
         }
 
@@ -102,27 +129,46 @@ namespace TheMazeRunner
             switch (_message)
             {
                 case AMessageRequest _request:
-                    OnReadMessageRequest(1, _request);
+                    OnReadMessageRequest(_channledId, _request);
                     break;
                 case AMessageResponse _response:
-
+                    OnReadMessageResponse(_response);
                     break;
                 case AMessageNotice _notice:
-
+                    OnReadMessageNotice(_notice);
                     break;
             }
         }
         //
         private async void OnReadMessageRequest(long _channledId, AMessageRequest _request)
         {
-            if(!messageRequestHandlers.TryGetValue(_request.GetType(),out AMessageRequestSO _so))
+            if(!messageRequestHandlers.TryGetValue(_request.GetType(),out AMessageRequestHandlerSO _so))
             {
                 return;
             }
-            AMessageResponse _response = await _so.OnHandMessage(_request);
+            IMessage _response = await _so.OnHandMessage(_request);
             MemoryStream _memoryStream = new MemoryStream();
             await MessagePackSerializer.SerializeAsync(_memoryStream, _response);
-            //todolist sendMessage
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+            service.SendStream(_channledId, 0, _memoryStream);
+        }
+
+        private void OnReadMessageResponse(AMessageResponse _response)
+        {
+            if (!messageRequestSenders.TryGetValue(_response.GetType(), out AMessageRequestSenderSO _so))
+            {
+                return;
+            }
+            _so.OnHandMessage(_response);
+        }
+
+        private void OnReadMessageNotice(AMessageNotice _notice)
+        {
+            if (!messageNoticeHandlers.TryGetValue(_notice.GetType(), out AMessageNoticeHandlerSO _so))
+            {
+                return;
+            }
+            _so.OnHandMessage(_notice);
         }
     }
 }

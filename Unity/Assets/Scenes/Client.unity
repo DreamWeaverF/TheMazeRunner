@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1704698612}
   - component: {fileID: 1704698611}
   - component: {fileID: 1704698613}
+  - component: {fileID: 1704698614}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -153,9 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6018df0298361348b8822f841b919f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messageRequestSOs: []
-  messageResponseSOs:
-  - {fileID: 11400000, guid: 54f62298c5ec7974e91156a8da969cb0, type: 2}
+  messageRequestSenderSOs:
+  - {fileID: 11400000, guid: adfcb77eb25143b4db24c6f9ada3c4c6, type: 2}
+  messageRequestHandlerSOs: []
+  messageNoticeSenderSOs: []
+  messageNoticeHandlerSOs: []
   IsServer: 0
 --- !u!4 &1704698612
 Transform:
@@ -184,7 +187,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d29c36b8c6281147a65b4873badeb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  responLoginHandler: {fileID: 11400000, guid: 54f62298c5ec7974e91156a8da969cb0, type: 2}
+  responLoginHandler: {fileID: 11400000, guid: adfcb77eb25143b4db24c6f9ada3c4c6, type: 2}
+  databaseTableTest: {fileID: 11400000, guid: daf8c5fab599af64ca7564830b2cdb32, type: 2}
+--- !u!114 &1704698614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704698610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54356f86bea91d44f9c95d56b3a152f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databaseTableSOs:
+  - {fileID: 11400000, guid: daf8c5fab599af64ca7564830b2cdb32, type: 2}
 --- !u!1 &2088778902
 GameObject:
   m_ObjectHideFlags: 0

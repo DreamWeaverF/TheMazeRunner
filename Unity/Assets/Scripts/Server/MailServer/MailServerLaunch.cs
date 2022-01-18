@@ -6,9 +6,9 @@ namespace TheMazeRunner
 {
     public static class MailServerLaunch
     {
-        public static void Start(LAUNCH_ENVIRONMENT _environment)
-        {
-            LogHelper.Log($"Start MailServer ##Environment: {_environment}");
-        }
+        //public static void Start(LAUNCH_ENVIRONMENT _environment)
+        //{
+        //    LogHelper.Log($"Start MailServer ##Environment: {_environment}");
+        //}
     }
 }

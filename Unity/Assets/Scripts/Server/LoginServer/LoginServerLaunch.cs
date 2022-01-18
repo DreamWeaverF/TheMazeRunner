@@ -6,9 +6,9 @@ namespace TheMazeRunner
 {
     public static class LoginServerLaunch
     {
-        public static void Start(LAUNCH_ENVIRONMENT _environment)
-        {
-            LogHelper.Log($"Start LoginServer ##Environment: {_environment}");
-        }
+        //public static void Start(LAUNCH_ENVIRONMENT _environment)
+        //{
+        //    LogHelper.Log($"Start LoginServer ##Environment: {_environment}");
+        //}
     }
 }

@@ -6,9 +6,9 @@ namespace TheMazeRunner
 {
     public class MapServerLaunch
     {
-        public static void Start(LAUNCH_ENVIRONMENT _environment)
-        {
-            LogHelper.Log($"Start MapServer ##Environment: {_environment}");
-        }
+        //public static void Start(LAUNCH_ENVIRONMENT _environment)
+        //{
+        //    LogHelper.Log($"Start MapServer ##Environment: {_environment}");
+        //}
     }
 }

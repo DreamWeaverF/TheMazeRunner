@@ -227,9 +227,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6018df0298361348b8822f841b919f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messageRequestSOs:
-  - {fileID: 11400000, guid: c07a9823e0cbdcd4f9c2bf2fe085ba29, type: 2}
-  messageResponseSOs: []
+  messageRequestSenderSOs: []
+  messageRequestHandlerSOs:
+  - {fileID: 11400000, guid: d6b67846f75f37745806a865d1f33a42, type: 2}
+  messageNoticeSenderSOs: []
+  messageNoticeHandlerSOs: []
   IsServer: 1
 --- !u!4 &2107344295
 Transform:
