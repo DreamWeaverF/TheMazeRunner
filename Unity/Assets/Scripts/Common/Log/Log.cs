@@ -7,7 +7,7 @@ using System.Net;
 using NLog;
 #endif
 
-namespace ET
+namespace TheMazeRunner
 {
     public static class Log
     {

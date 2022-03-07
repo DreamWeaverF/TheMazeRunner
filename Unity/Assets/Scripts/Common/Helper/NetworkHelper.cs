@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.NetworkInformation;
 
-namespace ET
+namespace TheMazeRunner
 {
 	public static class NetworkHelper
 	{

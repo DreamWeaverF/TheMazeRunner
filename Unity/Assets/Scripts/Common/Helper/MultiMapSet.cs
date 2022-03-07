@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ET
+namespace TheMazeRunner
 {
     public class MultiMapSet<T, K>: SortedDictionary<T, HashSet<K>>
     {

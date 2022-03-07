@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace ET
+namespace TheMazeRunner
 {
     [AsyncMethodBuilder(typeof (AsyncETTaskCompletedMethodBuilder))]
     public struct ETTaskCompleted: ICriticalNotifyCompletion

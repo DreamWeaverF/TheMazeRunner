@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security;
 
-namespace ET
+namespace TheMazeRunner
 {
     public struct AsyncETTaskCompletedMethodBuilder
     {

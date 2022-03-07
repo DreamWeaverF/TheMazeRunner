@@ -1,4 +1,4 @@
-using ET;
+using TheMazeRunner;
 using MessagePack;
 using System;
 using System.Collections;
@@ -6,54 +6,82 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace TheMazeRunner
 {
+    public enum SERVICE_TYPE
+    {
+        NONE,
+        OUTER,
+        INNER,
+    }
+
+    public enum NETWORK_TYPE
+    {
+        NONE,
+        LISTENER,
+        CONNECT,
+    }
     public class NetworkController : MonoBehaviour
     {
+        [SerializeField]
+        private NETWORK_TYPE networkType;
+        [SerializeField]
+        private SERVICE_TYPE serviceType;
+        [SerializeField]
+        private AIPAddressSO ipAddressSO;
+
         [SerializeField]
         private List<AMessageRequestSenderSO> messageRequestSenderSOs;
         [SerializeField]
         private List<AMessageRequestHandlerSO> messageRequestHandlerSOs;
-
         [SerializeField]
         private List<AMessageNoticeSenderSO> messageNoticeSenderSOs;
         [SerializeField]
         private List<AMessageNoticeHandlerSO> messageNoticeHandlerSOs;
 
-        [SerializeField]
-        private bool IsServer;
-
-        private Dictionary<Type, AMessageRequestSenderSO> messageRequestSenders = new Dictionary<Type, AMessageRequestSenderSO>();
-
         private Dictionary<Type, AMessageRequestHandlerSO> messageRequestHandlers = new Dictionary<Type, AMessageRequestHandlerSO>();
-
-        private Dictionary<Type, AMessageNoticeSenderSO> messageNoticeSenders = new Dictionary<Type, AMessageNoticeSenderSO>();
 
         private Dictionary<Type, AMessageNoticeHandlerSO> messageNoticeHandlers = new Dictionary<Type, AMessageNoticeHandlerSO>();
 
+        private readonly Dictionary<int, ETTask<AMessageResponse>> requestCallbacks = new Dictionary<int, ETTask<AMessageResponse>>();
 
-        private AService service;
+        private int rpcId;
+
+        private TCPService tcpService = new TCPService();
+
+
         void Start()
         {
-            if (IsServer)
-            {
-                service = new TService(ThreadSynchronizationContext.Instance, NetworkHelper.ToIPEndPoint("127.0.0.1", 10002), ServiceType.Outer);
-            }
-            else
-            {
-                service = new TService(ThreadSynchronizationContext.Instance, ServiceType.Outer);
-                //service.GetOrCreate(1, NetworkHelper.ToIPEndPoint("127.0.0.1", 20001));
-            }
-            service.ReadCallback += OnReadMessage;
-            service.AcceptCallback += OnAccept;
+            //switch (networkType)
+            //{
+            //    case NETWORK_TYPE.LISTENER:
+            //        tcpService.StartListener(ipAddressSO.TryGetIPEndPoint(networkType));
+            //        break;
+            //    case NETWORK_TYPE.CONNECT:
+            //        tcpService.StartConnect(ipAddressSO.TryGetIPEndPoint(networkType));
+            //        break;
+            //}
+
+
+            //switch (networkType)
+            //{
+            //    case NETWORK_TYPE.LISTENER:
+            //        service.StartListener(serviceType,ipAddressSO.TryGetIPEndPoint(networkType));
+            //        break;
+            //    case NETWORK_TYPE.CONNECT:
+            //        service.StartConnect(serviceType, ipAddressSO.TryGetIPEndPoint(networkType));
+            //        break;
+            //}
+            //service.ReadCallback += OnReadMessage;
+            //service.AcceptCallback += OnAccept;
 
             if (messageRequestSenderSOs.Count > 0)
             {
                 for (int i = 0; i < messageRequestSenderSOs.Count; i++)
                 {
-                    messageRequestSenderSOs[i].SendMessageEvent += OnSendMessage;
-                    messageRequestSenders.Add(messageRequestSenderSOs[i].GetResponseType(), messageRequestSenderSOs[i]);
+                    messageRequestSenderSOs[i].Init(this);
                 }
             }
 
@@ -69,8 +97,7 @@ namespace TheMazeRunner
             {
                 for (int i = 0; i < messageNoticeSenderSOs.Count; i++)
                 {
-                    messageNoticeSenderSOs[i].SendMessageEvent += OnSendMessage;
-                    messageNoticeSenders.Add(messageNoticeSenderSOs[i].GetNoticeType(), messageNoticeSenderSOs[i]);
+                    messageNoticeSenderSOs[i].Init(this);
                 }
             }
 
@@ -85,24 +112,14 @@ namespace TheMazeRunner
 
         void OnDestroy()
         {
-            for (int i = 0; i < messageRequestSenderSOs.Count; i++)
-            {
-                messageRequestSenderSOs[i].SendMessageEvent -= OnSendMessage;
-            }
-            messageRequestSenderSOs.Clear();
             messageRequestHandlers.Clear();
-            for (int i = 0; i < messageNoticeSenderSOs.Count; i++)
-            {
-                messageNoticeSenderSOs[i].SendMessageEvent -= OnSendMessage;
-            }
-            messageNoticeSenders.Clear();
             messageNoticeHandlers.Clear();
         }
 
         // Update is called once per frame
         void Update()
         {
-            service?.Update();
+            //service?.Update();
         }
 
         private void OnAccept(long _channelId, IPEndPoint _ipEndPoint)
@@ -110,26 +127,38 @@ namespace TheMazeRunner
             //Log.Debug($"ÍøÂçÍæ¼ÒÁ¬½Ó {_ipEndPoint}");
         }
 
-        private async void OnSendMessage(IMessage _message)
+        public async Task<T2> SendMessage<T1,T2>(T1 _request) where T1 : AMessageRequest where T2 : AMessageResponse
         {
-            IPEndPoint _realIPEndPoint = NetworkHelper.ToIPEndPoint("127.0.0.1", 10002);
-            long _channelId = RandomHelper.RandInt64();
-            service.GetOrCreate(_channelId, _realIPEndPoint);
+            _request.RpcId = rpcId++;
+            ETTask<AMessageResponse> _task = ETTask<AMessageResponse>.Create(true);
+            requestCallbacks.Add(_request.RpcId, _task);
 
+            long _channelId = RandomHelper.RandInt64();
             MemoryStream _memoryStream = new MemoryStream();
-            await MessagePackSerializer.SerializeAsync(_memoryStream, _message);
+            await MessagePackSerializer.SerializeAsync(_memoryStream, _request);
             _memoryStream.Seek(0, SeekOrigin.Begin);
-            service.SendStream(_channelId, 0, _memoryStream);
+            //service.SendStream(_channelId, 0, _memoryStream);
+
+            return await _task as T2;
         }
 
-        private void OnReadMessage(long _channledId,MemoryStream _stream)
+        public async Task SendMessage<T1>(T1 _notice) where T1 : AMessageNotice
+        {
+            long _channelId = RandomHelper.RandInt64();
+            MemoryStream _memoryStream = new MemoryStream();
+            await MessagePackSerializer.SerializeAsync(_memoryStream, _notice);
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+            //service.SendStream(_channelId, 0, _memoryStream);
+        }
+
+        private void OnReadMessage(TCPChannel _channel,MemoryStream _stream)
         {
             _stream.Position = 0;
             object _message = MessagePackSerializer.Deserialize<IMessage>(_stream);
             switch (_message)
             {
                 case AMessageRequest _request:
-                    OnReadMessageRequest(_channledId, _request);
+                    OnReadMessageRequest(_channel, _request);
                     break;
                 case AMessageResponse _response:
                     OnReadMessageResponse(_response);
@@ -140,7 +169,7 @@ namespace TheMazeRunner
             }
         }
         //
-        private async void OnReadMessageRequest(long _channledId, AMessageRequest _request)
+        private async void OnReadMessageRequest(TCPChannel _channel, AMessageRequest _request)
         {
             if(!messageRequestHandlers.TryGetValue(_request.GetType(),out AMessageRequestHandlerSO _so))
             {
@@ -150,16 +179,17 @@ namespace TheMazeRunner
             MemoryStream _memoryStream = new MemoryStream();
             await MessagePackSerializer.SerializeAsync(_memoryStream, _response);
             _memoryStream.Seek(0, SeekOrigin.Begin);
-            service.SendStream(_channledId, 0, _memoryStream);
+            //service.SendStream(_channledId, 0, _memoryStream);
         }
 
         private void OnReadMessageResponse(AMessageResponse _response)
         {
-            if (!messageRequestSenders.TryGetValue(_response.GetType(), out AMessageRequestSenderSO _so))
+            if(!requestCallbacks.TryGetValue(_response.RpcId,out ETTask<AMessageResponse> _task))
             {
                 return;
             }
-            _so.OnHandMessage(_response);
+            _task.SetResult(_response);
+            requestCallbacks.Remove(_response.RpcId);
         }
 
         private void OnReadMessageNotice(AMessageNotice _notice)

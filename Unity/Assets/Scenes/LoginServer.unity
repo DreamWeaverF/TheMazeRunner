@@ -207,7 +207,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2107344295}
-  - component: {fileID: 2107344294}
+  - component: {fileID: 2107344296}
+  - component: {fileID: 2107344297}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -215,24 +216,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2107344294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107344293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6018df0298361348b8822f841b919f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  messageRequestSenderSOs: []
-  messageRequestHandlerSOs:
-  - {fileID: 11400000, guid: d6b67846f75f37745806a865d1f33a42, type: 2}
-  messageNoticeSenderSOs: []
-  messageNoticeHandlerSOs: []
-  IsServer: 1
 --- !u!4 &2107344295
 Transform:
   m_ObjectHideFlags: 0
@@ -248,3 +231,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2107344296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107344293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54356f86bea91d44f9c95d56b3a152f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databaseConfig: {fileID: 11400000, guid: 4ebeacf8e3f22cf4dbbf6f69f7acc27c, type: 2}
+  databaseTableSOs:
+  - {fileID: 11400000, guid: 0578006168ee84640bb22c790feb2f57, type: 2}
+--- !u!114 &2107344297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107344293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db68a2d54fb58c438d8baabf3db5d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tableRankSO: {fileID: 11400000, guid: 0578006168ee84640bb22c790feb2f57, type: 2}

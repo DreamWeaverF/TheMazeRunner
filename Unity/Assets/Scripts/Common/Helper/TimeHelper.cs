@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace ET
+namespace TheMazeRunner
 {
     public static class TimeHelper
     {

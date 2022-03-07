@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace ET
+namespace TheMazeRunner
 {
     [AsyncMethodBuilder(typeof (AsyncETVoidMethodBuilder))]
     internal struct ETVoid: ICriticalNotifyCompletion

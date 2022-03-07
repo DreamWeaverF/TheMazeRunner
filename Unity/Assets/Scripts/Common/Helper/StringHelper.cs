@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace ET
+namespace TheMazeRunner
 {
 	public static class StringHelper
 	{

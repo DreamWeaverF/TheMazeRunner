@@ -1,4 +1,4 @@
-using ET;
+using TheMazeRunner;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace TheMazeRunner
 {
@@ -33,77 +34,95 @@ namespace TheMazeRunner
 
     public class Launch : MonoBehaviour
     {
-        public LAUNCH_ENVIRONMENT Environment;
-        public LAUNCH_MODEL Model;
+        [SerializeField]
+        private LAUNCH_ENVIRONMENT environment;
+        [SerializeField]
+        private LAUNCH_MODEL model;
+        [SerializeField]
+        private int index;
 
-        IEnumerator Start()
+
+        void Start()
         {
-            AsyncOperation _loadOpear = SceneManager.LoadSceneAsync("LoginServer",LoadSceneMode.Additive);
-            yield return _loadOpear;
+            string[] CommandLineArgs = Environment.GetCommandLineArgs();
 
-            yield return 1000;
-
-            _loadOpear = SceneManager.LoadSceneAsync("Client", LoadSceneMode.Additive);
-            yield return _loadOpear;
-            //switch (Model)
+            //text.text = "";
+            //for(int i = 0; i < CommandLineArgs.Length; i++)
             //{
-            //    case LAUNCH_MODEL.CLIENT:
-            //        LoadScene("Client");
-            //        break;
-            //    case LAUNCH_MODEL.LOGIN_SERVER:
-            //        LoadScene("LoginServer");
-            //        break;
-            //    case LAUNCH_MODEL.GATE_SERVER:
-            //        LoadScene("GateServer");
-            //        break;
-            //    case LAUNCH_MODEL.CENTER_SERVER:
-            //        LoadScene("CenterServer");
-            //        break;
-            //    case LAUNCH_MODEL.MAP_SERVER:
-            //        LoadScene("MapServer");
-            //        break;
-            //    case LAUNCH_MODEL.USER_SERVER:
-            //        LoadScene("UserServer");
-            //        break;
-            //    case LAUNCH_MODEL.MAIL_SERVER:
-            //        LoadScene("MailServer");
-            //        break;
-            //    case LAUNCH_MODEL.CHAT_SERVER:
-            //        LoadScene("ChatServer");
-            //        break;
-            //    case LAUNCH_MODEL.TOTAL:
-            //        //LoadScene("CenterServer");
-            //        //LoadScene("UserServer");
-            //        //LoadScene("MailServer");
-            //        //LoadScene("ChatServer");
-            //        //LoadScene("MapServer");
-            //        //LoadScene("GateServer");
-            //        LoadScene(new List<string> { 
-            //            "LoginServer",
-            //            "Client" 
-            //        });
-            //        break;
+            //    text.text += CommandLineArgs[i] + "\n";
             //}
         }
 
-        IEnumerator LoadScene(string _fileName)
-        {
-            AsyncOperation _loadOpear = SceneManager.LoadSceneAsync(_fileName);
-            yield return _loadOpear;
-        }
+        //IEnumerator Start()
+        //{
+        //    int _serviceType = (int)(EnumServiceType.Client | EnumServiceType.CenterServer);
+        //    int _targetType = (int)(_serviceType ^ (int)EnumServiceType.Client);
 
-        IEnumerator LoadScene(List<string> _fileNameList)
-        {
-            for(int _index = 0; _index < _fileNameList.Count; _index++)
-            {
-                yield return LoadScene(_fileNameList[_index]);
-            }
-        }
+        //    //launchConfigSO.Environment = environment;
+        //    //launchConfigSO.Model = model;
+        //    //launchConfigSO.Index = index;
 
-        void Update()
-        {
-            ThreadSynchronizationContext.Instance.Update();
-        }
+        //    //AsyncOperation _loadOpear = SceneManager.LoadSceneAsync("LoginServer",LoadSceneMode.Additive);
+        //    //yield return _loadOpear;
+
+        //    yield return 1000;
+
+        //    //_loadOpear = SceneManager.LoadSceneAsync("Client", LoadSceneMode.Additive);
+        //    //yield return _loadOpear;
+        //    //switch (Model)
+        //    //{
+        //    //    case LAUNCH_MODEL.CLIENT:
+        //    //        LoadScene("Client");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.LOGIN_SERVER:
+        //    //        LoadScene("LoginServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.GATE_SERVER:
+        //    //        LoadScene("GateServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.CENTER_SERVER:
+        //    //        LoadScene("CenterServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.MAP_SERVER:
+        //    //        LoadScene("MapServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.USER_SERVER:
+        //    //        LoadScene("UserServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.MAIL_SERVER:
+        //    //        LoadScene("MailServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.CHAT_SERVER:
+        //    //        LoadScene("ChatServer");
+        //    //        break;
+        //    //    case LAUNCH_MODEL.TOTAL:
+        //    //        //LoadScene("CenterServer");
+        //    //        //LoadScene("UserServer");
+        //    //        //LoadScene("MailServer");
+        //    //        //LoadScene("ChatServer");
+        //    //        //LoadScene("MapServer");
+        //    //        //LoadScene("GateServer");
+        //    //        LoadScene(new List<string> { 
+        //    //            "LoginServer",
+        //    //            "Client" 
+        //    //        });
+        //    //        break;
+        //    //}
+        //}
+
+        //IEnumerator LoadScene(string _fileName)
+        //{
+        //    AsyncOperation _loadOpear = SceneManager.LoadSceneAsync(_fileName);
+        //    yield return _loadOpear;
+        //}
+
+        //IEnumerator LoadScene(List<string> _fileNameList)
+        //{
+        //    for(int _index = 0; _index < _fileNameList.Count; _index++)
+        //    {
+        //        yield return LoadScene(_fileNameList[_index]);
+        //    }
+        //}
     }
 }
 

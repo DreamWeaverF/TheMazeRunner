@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Random = System.Random;
 
-namespace ET
+namespace TheMazeRunner
 {
     public static class RandomEx
     {

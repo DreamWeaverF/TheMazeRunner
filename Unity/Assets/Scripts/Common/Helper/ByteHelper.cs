@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ET
+namespace TheMazeRunner
 {
 	public static class ByteHelper
 	{

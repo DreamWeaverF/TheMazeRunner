@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace ET
+namespace TheMazeRunner
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate int KcpOutput(IntPtr buf, int len, IntPtr kcp, IntPtr user);

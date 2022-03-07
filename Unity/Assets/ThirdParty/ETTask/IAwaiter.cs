@@ -1,4 +1,4 @@
-﻿namespace ET
+﻿namespace TheMazeRunner
 {
     public enum AwaiterStatus: byte
     {

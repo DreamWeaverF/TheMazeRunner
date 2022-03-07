@@ -1,4 +1,4 @@
-﻿namespace ET
+﻿namespace TheMazeRunner
 {
     public interface ILog
     {

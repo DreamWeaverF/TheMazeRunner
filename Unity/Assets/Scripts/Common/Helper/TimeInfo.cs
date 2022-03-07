@@ -1,6 +1,6 @@
 using System;
 
-namespace ET
+namespace TheMazeRunner
 {
     public class TimeInfo: IDisposable
     {

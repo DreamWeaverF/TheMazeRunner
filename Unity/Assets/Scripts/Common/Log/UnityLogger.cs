@@ -1,7 +1,7 @@
 ﻿#if !NOT_UNITY
 using System;
 
-namespace ET
+namespace TheMazeRunner
 {
     public class UnityLogger: ILog
     {

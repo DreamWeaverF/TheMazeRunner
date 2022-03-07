@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace TheMazeRunner
 {
     public class ClientTest : MonoBehaviour
     {
+
         [SerializeField]
-        private MessageRequestSenderLogin responLoginHandler;
-        [SerializeField]
-        private DatabaseTableRank databaseTableTest;
+        private AMessageRequestSenderSO requestSenderSO;
+
         void Start()
         {
             
@@ -26,12 +27,13 @@ namespace TheMazeRunner
 
         async void onClick()
         {
-            long _count = await databaseTableTest.SelectCountFromTableName();
-            MessageResponseLogin _response = await responLoginHandler.OnSendMessage(new MessageRequestLogin()
+            //long _count = await databaseTableTest.SelectCountFromTableName();
+            MessageResponseLogin _response = await requestSenderSO.SendMessage<MessageRequestLogin,MessageResponseLogin>(new MessageRequestLogin()
             {
                 UserName = "xxx",
                 Password = "111",
             });
+            Log.Debug($"Sender{_response.IpAddress}");
         }
     }
 }
