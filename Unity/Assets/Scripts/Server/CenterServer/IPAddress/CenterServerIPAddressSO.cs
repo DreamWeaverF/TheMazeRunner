@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TheMazeRunner
 {
     [AutoGenSO(GenPath = "IPAddress/CenterServer")]
-    public class CenterServerIPAddressSO : AIPAddressSO
+    public class CenterServerIPAddressSO : AHostAndPortSO
     {
         
     }

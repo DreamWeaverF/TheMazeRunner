@@ -8,7 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>TheMazeRunner</RootNamespace>
     <ProjectGuid>{CA467871-2A3B-17A0-793C-80960FD9B9FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -57,21 +57,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Server\UserServer\UserServerLaunch.cs" />
+    <Compile Include="Assets\Scripts\Server\GateServer\Client2GateMessageController.cs" />
     <Compile Include="Assets\Scripts\Server\LoginServer\LoginServerLaunch.cs" />
     <Compile Include="Assets\Scripts\Server\ChatServer\ChatServerLaunch.cs" />
     <Compile Include="Assets\Scripts\Server\MailServer\MailServerLaunch.cs" />
     <Compile Include="Assets\Scripts\Server\Database\DatabaseController.cs" />
     <Compile Include="Assets\Scripts\Server\Database\ADatabaseTableSO.cs" />
     <Compile Include="Assets\Scripts\Server\CenterServer\User\CenterServerUserDataSO.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\Session\ChatProxySession.cs" />
+    <Compile Include="Assets\Scripts\Server\ServerApp.cs" />
+    <Compile Include="Assets\Scripts\Server\GateServer\Gate2CenterMessageController.cs" />
     <Compile Include="Assets\Scripts\Server\CenterServer\IPAddress\CenterServerIPAddressSO.cs" />
     <Compile Include="Assets\Scripts\Server\CenterServer\CenterServerLaunch.cs" />
     <Compile Include="Assets\Scripts\Server\Database\Rank\DatabaseTableRankSO.cs" />
-    <Compile Include="Assets\Scripts\Server\GateServer\GateServerLaunch.cs" />
     <Compile Include="Assets\Scripts\Server\AppTest.cs" />
-    <Compile Include="Assets\Scripts\Server\CenterServer\Network\G2CNetworkController.cs" />
+    <Compile Include="Assets\Scripts\Server\GateServer\Gate2LoginMessageController.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\Session\LoginProxySession.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\Session\MailProxySession.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\Session\FightProxySession.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\CenterServerNetworkController.cs" />
     <Compile Include="Assets\Scripts\Server\MapServer\MapServerLaunch.cs" />
     <Compile Include="Assets\Scripts\Server\Database\DatabaseConfigSO.cs" />
     <Compile Include="Assets\Scripts\Server\LoginServer\Message\MessageRequestHandlerLoginSO.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\Session\GateProxySession.cs" />
+    <Compile Include="Assets\Scripts\Server\CenterServer\Network\Session\UserProxySession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Server\Server.asmdef" />

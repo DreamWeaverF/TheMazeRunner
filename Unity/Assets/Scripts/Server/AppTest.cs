@@ -12,9 +12,11 @@ namespace TheMazeRunner
     {
         [SerializeField]
         private DatabaseTableRankSO tableRankSO;
+        [SerializeField]
+        private HService service;
         void Start()
         {
-            
+            service.AddListenerReadStream(OnCallbackStream);
         }
 
         // Update is called once per frame
@@ -56,12 +58,29 @@ namespace TheMazeRunner
 
         private async void SelectTest()
         {
+            GateProxySession _session = new GateProxySession();
+            await _session.SendAsync(new MessageRequestLogin()
+            {
+                UserName = "xxx",
+                Password = "111",
+            });
+            //long _testL = long.MaxValue;
+            //MemoryStream _stream = new MemoryStream();
+            //_stream.SetLength(sizeof(long));
+            //_stream.GetBuffer().WriteTo(0, _testL);
+            //Debug.Log($"___{_stream.GetBuffer().Length}");
+            //service.Send(_stream);
             //RankData _rankData = await tableRankSO.SelectDatabase(1001);
-            tableRankSO.AddListener<DatabaseTableRankSO, string>(nameof(tableRankSO.TestXXX), OnTestXXXUpdate);
-            tableRankSO.SetValueBoradCast(nameof(tableRankSO.TestXXX), "hahahah");
-            tableRankSO.RemoveListener<DatabaseTableRankSO, string>(nameof(tableRankSO.TestXXX), OnTestXXXUpdate);
+            //tableRankSO.AddListener<DatabaseTableRankSO, string>(nameof(tableRankSO.TestXXX), OnTestXXXUpdate);
+            //tableRankSO.SetValueBoradCast(nameof(tableRankSO.TestXXX), "hahahah");
+            //tableRankSO.RemoveListener<DatabaseTableRankSO, string>(nameof(tableRankSO.TestXXX), OnTestXXXUpdate);
 
             //button3_Click(null, null);
+        }
+
+        private void OnCallbackStream(long _id,MemoryStream _stream)
+        {
+            Debug.Log("4444");
         }
 
         private void OnTestXXXUpdate(string _xxx)

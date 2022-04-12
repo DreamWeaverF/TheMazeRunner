@@ -9,7 +9,7 @@ namespace TheMazeRunner
         private static string NetUrl = "http://127.0.0.1:20001/";
 
         
-        public static void Start(LAUNCH_ENVIRONMENT _environment)
+        public static void Start(APP_ENVIRONMENT _environment)
         {
             LogHelper.Log($"Start Client ##Environment: {_environment}");
 

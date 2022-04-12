@@ -1,56 +1,44 @@
-using TheMazeRunner;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace TheMazeRunner
 {
-    public enum LAUNCH_ENVIRONMENT
+    public enum APP_ENVIRONMENT
     {
-        NONE,
-        DEV,
-        QA,
-        RELEASE,
+        None,
+        Dev,
+        Qa,
+        Release,
     }
 
-    public enum LAUNCH_MODEL
+    public enum APP_MODEL
     {
-        NONE,
-        TOTAL,
-        CLIENT,
-        LOGIN_SERVER,
-        GATE_SERVER,
-        CENTER_SERVER,
-        MAP_SERVER,
-        USER_SERVER,
-        MAIL_SERVER,
-        CHAT_SERVER,
+        None,
+        Total,
+        Client,
+        GateServer,
+        CenterServer,
+        LoginServer,
+        UserServer,
+        MapServer,
+        MailServer,
+        ChatServer,
     }
+
 
     public class Launch : MonoBehaviour
     {
         [SerializeField]
-        private LAUNCH_ENVIRONMENT environment;
-        [SerializeField]
-        private LAUNCH_MODEL model;
-        [SerializeField]
-        private int index;
-
+        private LaunchSettingSO settingSO;
 
         void Start()
         {
             string[] CommandLineArgs = Environment.GetCommandLineArgs();
 
-            //text.text = "";
-            //for(int i = 0; i < CommandLineArgs.Length; i++)
-            //{
-            //    text.text += CommandLineArgs[i] + "\n";
-            //}
+            for (int i = 0; i < CommandLineArgs.Length; i++)
+            {
+                Debug.Log(CommandLineArgs[i]);
+            }
         }
 
         //IEnumerator Start()

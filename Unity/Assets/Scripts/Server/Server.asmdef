@@ -1,6 +1,6 @@
 {
     "name": "Server",
-    "rootNamespace": "",
+    "rootNamespace": "TheMazeRunner",
     "references": [
         "GUID:0744772b2fbdd934eb1b213ba6a15c99",
         "GUID:bbde805d927e795439d7a746d1749cab",

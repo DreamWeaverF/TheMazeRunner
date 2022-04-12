@@ -1,90 +1,51 @@
-﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TheMazeRunner
 {
-    public abstract class AService : ScriptableObject, IDisposable
+    public enum SERVICE_TYPE
     {
-        public ThreadSynchronizationContextSO SynchronizationContextSO;
-        public SERVICE_TYPE ServiceType { get; protected set; }
+        None,
+        Listener,
+        Connect,
+    }
 
-        // localConn放在低32bit
-        private long connectIdGenerater = int.MaxValue;
-        public long CreateConnectChannelId(uint localConn)
-        {
-            return (--this.connectIdGenerater << 32) | localConn;
-        }
-        
-        public uint CreateRandomLocalConn()
-        {
-            return (1u << 30) | RandomHelper.RandUInt32();
-        }
+    public abstract class AService : MonoBehaviour
+    {
+        [SerializeField]
+        protected AHostAndPortSO hostAndPortSO;
+        [SerializeField]
+        protected SERVICE_TYPE serviceType;
 
-        // localConn放在低32bit
+        protected readonly long connectChannelID = 0;
+
+        protected UnityEvent<long, MemoryStream> readStreamEvents = new UnityEvent<long, MemoryStream>();
+
+        // localConn���ڵ�32bit
         private long acceptIdGenerater = 1;
         public long CreateAcceptChannelId(uint localConn)
         {
             return (++this.acceptIdGenerater << 32) | localConn;
         }
 
-        public abstract void StartListener(SERVICE_TYPE serviceType, IPEndPoint ipEndPoint);
-
-        public abstract void StartConnect(SERVICE_TYPE serviceType, IPEndPoint ipEndPoint);
-
-        public abstract void Update();
-
-        public abstract void Remove(long id);
+        public void InvokeReadStream(long _id,MemoryStream _stream)
+        {
+            readStreamEvents.Invoke(_id, _stream);
+        }
         
-        public abstract bool IsDispose();
-
-        protected abstract void Get(long id, IPEndPoint address);
-
-        public abstract void Dispose();
-
-        protected abstract void Send(long channelId, long actorId, MemoryStream stream);
-        
-        protected void OnAccept(long channelId, IPEndPoint ipEndPoint)
+        public void AddListenerReadStream(UnityAction<long,MemoryStream> _call)
         {
-            this.AcceptCallback.Invoke(channelId, ipEndPoint);
+            readStreamEvents.AddListener(_call);
+        }
+        public void RemoveListenerReadStream(UnityAction<long,MemoryStream> _call)
+        {
+            readStreamEvents.RemoveListener(_call);
         }
 
-        public void OnRead(long channelId, MemoryStream memoryStream)
-        {
-            this.ReadCallback.Invoke(channelId, memoryStream);
-        }
-
-        public void OnError(long channelId, int e)
-        {
-            this.Remove(channelId);
-            
-            this.ErrorCallback?.Invoke(channelId, e);
-        }
-
-        
-        public Action<long, IPEndPoint> AcceptCallback;
-        public Action<long, int> ErrorCallback;
-        public Action<long, MemoryStream> ReadCallback;
-
-        public void Destroy()
-        {
-            this.Dispose();
-        }
-
-        public void RemoveChannel(long channelId)
-        {
-            this.Remove(channelId);
-        }
-
-        public void SendStream(long channelId, long actorId, MemoryStream stream)
-        {
-            this.Send(channelId, actorId, stream);
-        }
-
-        public void GetOrCreate(long id, IPEndPoint address)
-        {
-            this.Get(id, address);
-        }
+        public abstract void Send(MemoryStream _stream, long _id = 0);
     }
 }

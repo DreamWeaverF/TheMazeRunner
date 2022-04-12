@@ -1,0 +1,16 @@
+{
+    "name": "Editor",
+    "rootNamespace": "TheMazeRunner",
+    "references": [
+        "GUID:0744772b2fbdd934eb1b213ba6a15c99"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

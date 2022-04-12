@@ -28,12 +28,12 @@ namespace TheMazeRunner
         async void onClick()
         {
             //long _count = await databaseTableTest.SelectCountFromTableName();
-            MessageResponseLogin _response = await requestSenderSO.SendMessage<MessageRequestLogin,MessageResponseLogin>(new MessageRequestLogin()
-            {
-                UserName = "xxx",
-                Password = "111",
-            });
-            Log.Debug($"Sender{_response.IpAddress}");
+            //MessageResponseLogin _response = await requestSenderSO.SendMessage<MessageRequestLogin,MessageResponseLogin>(new MessageRequestLogin()
+            //{
+            //    UserName = "xxx",
+            //    Password = "111",
+            //});
+            //Log.Debug($"Sender{_response.IpAddress}");
         }
     }
 }
