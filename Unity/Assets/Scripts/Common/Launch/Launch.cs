@@ -33,12 +33,12 @@ namespace TheMazeRunner
 
         void Start()
         {
-            string[] CommandLineArgs = Environment.GetCommandLineArgs();
+            //string[] CommandLineArgs = Environment.GetCommandLineArgs();
 
-            for (int i = 0; i < CommandLineArgs.Length; i++)
-            {
-                Debug.Log(CommandLineArgs[i]);
-            }
+            //for (int i = 0; i < CommandLineArgs.Length; i++)
+            //{
+            //    Debug.Log(CommandLineArgs[i]);
+            //}
         }
 
         //IEnumerator Start()

@@ -6,7 +6,7 @@ namespace TheMazeRunner
 {
     public static class ClientLaunch
     {
-        private static string NetUrl = "http://127.0.0.1:20001/";
+        //private static string NetUrl = "http://127.0.0.1:20001/";
 
         
         public static void Start(APP_ENVIRONMENT _environment)

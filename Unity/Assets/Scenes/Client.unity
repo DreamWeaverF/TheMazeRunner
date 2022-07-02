@@ -148,16 +148,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704698610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6018df0298361348b8822f841b919f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkType: 2
-  serviceType: 1
-  ipAddressSO: {fileID: 11400000, guid: 0fa806d98211c614ab101a56af24012a, type: 2}
-  messageRequestSenderSOs:
-  - {fileID: 11400000, guid: 02588f045730049428a89985dc9a03f8, type: 2}
+  messageRequestSenderSOs: []
   messageRequestHandlerSOs: []
   messageNoticeSenderSOs: []
   messageNoticeHandlerSOs: []
@@ -188,8 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d29c36b8c6281147a65b4873badeb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  databaseTableTest: {fileID: 11400000, guid: 795945fc3fc4d2c47a4ef54a14d573ea, type: 2}
-  requestSenderSO: {fileID: 11400000, guid: 02588f045730049428a89985dc9a03f8, type: 2}
+  requestSenderSO: {fileID: 0}
 --- !u!1 &2088778902
 GameObject:
   m_ObjectHideFlags: 0

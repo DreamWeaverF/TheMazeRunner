@@ -13,7 +13,8 @@ namespace TheMazeRunner
 
         void Start()
         {
-            
+            UITest uiText = new UITest();
+
         }
 
         // Update is called once per frame
@@ -25,7 +26,7 @@ namespace TheMazeRunner
             }
         }
 
-        async void onClick()
+        void onClick()
         {
             //long _count = await databaseTableTest.SelectCountFromTableName();
             //MessageResponseLogin _response = await requestSenderSO.SendMessage<MessageRequestLogin,MessageResponseLogin>(new MessageRequestLogin()
