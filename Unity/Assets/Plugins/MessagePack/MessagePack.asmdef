@@ -1,9 +1,9 @@
 {
     "name": "MessagePack",
+    "rootNamespace": "",
     "references": [
         "MessagePack.Annotations"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
@@ -17,5 +17,6 @@
     ],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }

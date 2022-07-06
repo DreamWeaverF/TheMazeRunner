@@ -2,11 +2,13 @@
     "name": "Editor",
     "rootNamespace": "TheMazeRunner",
     "references": [
-        "GUID:0744772b2fbdd934eb1b213ba6a15c99"
+        "GUID:4cd211d90dc98584eb12338a709c60a4"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

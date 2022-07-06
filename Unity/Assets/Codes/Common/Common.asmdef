@@ -1,0 +1,19 @@
+{
+    "name": "Common",
+    "rootNamespace": "TheMazeRunner",
+    "references": [
+        "MessagePack",
+        "MessagePack.Annotations"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
