@@ -12,26 +12,26 @@ namespace TheMazeRunner
             {
                 content =  content.Replace("<Compile Include=\"Assets\\Codes\\Client\\Empty.cs\" />", string.Empty);
                 content =  content.Replace("<None Include=\"Assets\\Codes\\Client\\Client.asmdef\" />", string.Empty);
-                return GenerateCustomProject(path, content, @"Codes\Client\**\*.cs");
+                return GenerateCustomProject(path, content, @"Codes\Client\**\*.cs",new string[2] { "MessagePack", "MessagePack.Annotations" });
             }
             
             if (path.EndsWith("Common.csproj"))
             {
                 content =  content.Replace("<Compile Include=\"Assets\\Codes\\Common\\Empty.cs\" />", string.Empty);
                 content =  content.Replace("<None Include=\"Assets\\Codes\\Common\\Common.asmdef\" />", string.Empty);
-                return GenerateCustomProject(path, content, @"Codes\Common\**\*.cs");
+                return GenerateCustomProject(path, content, @"Codes\Common\**\*.cs", new string[2] { "MessagePack", "MessagePack.Annotations" });
             }
             
             if (path.EndsWith("Server.csproj"))
             {
                 content =  content.Replace("<Compile Include=\"Assets\\Codes\\Server\\Empty.cs\" />", string.Empty);
                 content =  content.Replace("<None Include=\"Assets\\Codes\\Server\\Server.asmdef\" />", string.Empty);
-                return GenerateCustomProject(path, content, @"Codes\Server\**\*.cs");
+                return GenerateCustomProject(path, content, @"Codes\Server\**\*.cs", new string[3] { "MessagePack", "MessagePack.Annotations" , "MySql.Data" });
             }
             return content;
         }
 
-        private static string GenerateCustomProject(string path, string content, string codesPath)
+        private static string GenerateCustomProject(string path, string content, string codesPath, string[] nugetList)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(content);
@@ -42,27 +42,24 @@ namespace TheMazeRunner
 
             var itemGroup = newDoc.CreateElement("ItemGroup", newDoc.DocumentElement.NamespaceURI);
             var compile = newDoc.CreateElement("Compile", newDoc.DocumentElement.NamespaceURI);
-
             compile.SetAttribute("Include", codesPath);
             itemGroup.AppendChild(compile);
 
-            //var projectReference = newDoc.CreateElement("ProjectReference", newDoc.DocumentElement.NamespaceURI);
-            //projectReference.SetAttribute("Include", @"..\Share\Analyzer\Share.Analyzer.csproj");
-            //projectReference.SetAttribute("OutputItemType", @"Analyzer");
-            //projectReference.SetAttribute("ReferenceOutputAssembly", @"false");
+            if(nugetList != null && nugetList.Length > 0)
+            {
+                for(int i = 0; i < nugetList.Length; i++)
+                {
+                    var nugetRef = newDoc.CreateElement("Reference", newDoc.DocumentElement.NamespaceURI);
+                    nugetRef.SetAttribute("Include", nugetList[i]);
 
-            //var project = newDoc.CreateElement("Project", newDoc.DocumentElement.NamespaceURI);
-            //project.InnerText = @"{d1f2986b-b296-4a2d-8f12-be9f470014c3}";
-            //projectReference.AppendChild(project);
+                    var hintPath = newDoc.CreateElement("HintPath", newDoc.DocumentElement.NamespaceURI);
+                    hintPath.InnerText = $"Nuget\\{nugetList[i]}.dll";
+                    nugetRef.AppendChild(hintPath);
 
-            //var name = newDoc.CreateElement("Name", newDoc.DocumentElement.NamespaceURI);
-            //name.InnerText = "Analyzer";
-            //projectReference.AppendChild(project);
-
-            //itemGroup.AppendChild(projectReference);
-
+                    itemGroup.AppendChild(nugetRef);
+                }
+            }
             rootNode.AppendChild(itemGroup);
-
             using (StringWriter sw = new StringWriter())
             {
 

@@ -35,11 +35,11 @@ namespace TheMazeRunner
                 "Codes/Common/",
                 "Codes/Client/",
             }, Array.Empty<string>(), CodeOptimization.Debug);
-            BuildAssemblieEditor.BuildMuteAssembly("ServerCode", new[]
-            {
-                "Codes/Common/",
-                "Codes/Server/",
-            }, Array.Empty<string>(), CodeOptimization.Debug);
+            //BuildAssemblieEditor.BuildMuteAssembly("ServerCode", new[]
+            //{
+            //    "Codes/Common/",
+            //    "Codes/Server/",
+            //}, Array.Empty<string>(), CodeOptimization.Debug);
             //AfterCompiling();
             AssetDatabase.Refresh();
         }

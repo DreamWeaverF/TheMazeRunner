@@ -2,9 +2,7 @@
     "name": "Server",
     "rootNamespace": "TheMazeRunner",
     "references": [
-        "Common",
-        "MessagePack",
-        "MessagePack.Annotations"
+        "Common"
     ],
     "includePlatforms": [
         "Editor"

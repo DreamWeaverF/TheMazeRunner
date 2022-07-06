@@ -58,9 +58,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Runtime\Component\TransformExpand.cs" />
     <Compile Include="Assets\Scripts\Runtime\Test\AutoLinkComponentMonoTest.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Launch\RuntimeLaunch.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Launch\Launch.cs" />
     <Compile Include="Assets\Scripts\Runtime\Attribute\AutoGenSOAttribute.cs" />
     <Compile Include="Assets\Scripts\Runtime\Component\AutoLinkComponentMono.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Log\UnityLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Runtime\Runtime.asmdef" />
@@ -321,9 +322,6 @@
     <Reference Include="UnityEditor.LinuxStandalone.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\PlaybackEngines\LinuxStandaloneSupport\UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>Assets\Plugins\MySql\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.17\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -338,9 +336,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>Assets\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.17\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>

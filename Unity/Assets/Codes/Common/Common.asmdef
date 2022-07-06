@@ -1,10 +1,7 @@
 {
     "name": "Common",
     "rootNamespace": "TheMazeRunner",
-    "references": [
-        "MessagePack",
-        "MessagePack.Annotations"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],
