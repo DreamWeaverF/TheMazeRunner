@@ -11,85 +11,28 @@ namespace TheMazeRunner
 {
     public static class BuildAssemblieEditor
     {
-        private const string CodeDir = "Assets/Bundles/Code/";
-
-        [MenuItem("Tools/Build/EnableAutoBuildCodeDebug _F1")]
-        public static void SetAutoBuildCode()
-        {
-            PlayerPrefs.SetInt("AutoBuild", 1);
-            ShowNotification("AutoBuildCode Enabled");
-        }
+        //[MenuItem("Tools/Build/EnableAutoBuildCodeDebug _F1")]
+        //public static void SetAutoBuildCode()
+        //{
+        //    PlayerPrefs.SetInt("AutoBuild", 1);
+        //    ShowNotification("AutoBuildCode Enabled");
+        //}
         
-        [MenuItem("Tools/Build/DisableAutoBuildCodeDebug _F2")]
-        public static void CancelAutoBuildCode()
-        {
-            PlayerPrefs.DeleteKey("AutoBuild");
-            ShowNotification("AutoBuildCode Disabled");
-        }
+        //[MenuItem("Tools/Build/DisableAutoBuildCodeDebug _F2")]
+        //public static void CancelAutoBuildCode()
+        //{
+        //    PlayerPrefs.DeleteKey("AutoBuild");
+        //    ShowNotification("AutoBuildCode Disabled");
+        //}
+        private const string m_ConfigSOPath = "Assets/ScriptableObjects/Launch/LaunchSettingSO.asset";
 
-        [MenuItem("Tools/Build/BuildCodeDebug _F5")]
-        public static void BuildCodeDebug()
+        [MenuItem("Tools/Build/BuildCode _F5")]
+        public static void BuildCode()
         {
-            BuildAssemblieEditor.BuildMuteAssembly("ClientCode", new[]
-            {
-                "Codes/Common/",
-                "Codes/Client/",
-            }, Array.Empty<string>(), CodeOptimization.Debug);
-            //BuildAssemblieEditor.BuildMuteAssembly("ServerCode", new[]
-            //{
-            //    "Codes/Common/",
-            //    "Codes/Server/",
-            //}, Array.Empty<string>(), CodeOptimization.Debug);
+            LaunchSettingSO launchConfigSO = AssetDatabase.LoadAssetAtPath<LaunchSettingSO>(m_ConfigSOPath);
+            BuildMuteAssembly(launchConfigSO.DllName, launchConfigSO.DllPath, Array.Empty<string>(), launchConfigSO.CodeOptimization);
             //AfterCompiling();
             AssetDatabase.Refresh();
-        }
-
-        [MenuItem("Tools/Build/BuildCodeRelease _F6")]
-        public static void BuildCodeRelease()
-        {
-            BuildAssemblieEditor.BuildMuteAssembly("ClientCode", new[]
-            {
-                "Codes/Common/",
-                "Codes/Client/",
-            }, Array.Empty<string>(), CodeOptimization.Release);
-            BuildAssemblieEditor.BuildMuteAssembly("ServerCode", new[]
-            {
-                "Codes/Common/",
-                "Codes/Server/",
-            }, Array.Empty<string>(), CodeOptimization.Release);
-            AfterCompiling();
-            AssetDatabase.Refresh();
-        }
-        
-        [MenuItem("Tools/Build/BuildData _F7")]
-        public static void BuildData()
-        {
-            BuildAssemblieEditor.BuildMuteAssembly("Data", new []
-            {
-                "Codes/Model/",
-                "Codes/ModelView/",
-            }, Array.Empty<string>(), CodeOptimization.Debug);
-        }
-        
-        
-        [MenuItem("Tools/Build/BuildLogic _F8")]
-        public static void BuildLogic()
-        {
-            string[] logicFiles = Directory.GetFiles(Define.BuildOutputDir, "Logic_*");
-            foreach (string file in logicFiles)
-            {
-                File.Delete(file);
-            }
-
-            //int random = RandomHelper.RandomNumber(100000000, 999999999);
-            int random = 100;
-            string logicFile = $"Logic_{random}";
-            
-            BuildAssemblieEditor.BuildMuteAssembly(logicFile, new []
-            {
-                "Codes/Hotfix/",
-                "Codes/HotfixView/",
-            }, new[]{Path.Combine(Define.BuildOutputDir, "Data.dll")}, CodeOptimization.Debug);
         }
 
         private static void BuildMuteAssembly(string assemblyName, string[] CodeDirectorys, string[] additionalReferences, CodeOptimization codeOptimization)
@@ -185,22 +128,22 @@ namespace TheMazeRunner
             
             Debug.Log("Compiling finish");
 
-            Directory.CreateDirectory(CodeDir);
-            File.Copy(Path.Combine(Define.BuildOutputDir, "ClientCode.dll"), Path.Combine(CodeDir, "ClientCode.dll.bytes"), true);
-            File.Copy(Path.Combine(Define.BuildOutputDir, "ClientCode.pdb"), Path.Combine(CodeDir, "ClientCode.pdb.bytes"), true);
-            AssetDatabase.Refresh();
-            Debug.Log("copy Code.dll to Bundles/Code success!");
+            //Directory.CreateDirectory(CodeDir);
+            //File.Copy(Path.Combine(Define.BuildOutputDir, "ClientCode.dll"), Path.Combine(CodeDir, "ClientCode.dll.bytes"), true);
+            //File.Copy(Path.Combine(Define.BuildOutputDir, "ClientCode.pdb"), Path.Combine(CodeDir, "ClientCode.pdb.bytes"), true);
+            //AssetDatabase.Refresh();
+            //Debug.Log("copy Code.dll to Bundles/Code success!");
             
-            // 设置ab包
-            AssetImporter assetImporter1 = AssetImporter.GetAtPath("Assets/Bundles/Code/ClientCode.dll.bytes");
-            assetImporter1.assetBundleName = "ClientCode.unity3d";
-            AssetImporter assetImporter2 = AssetImporter.GetAtPath("Assets/Bundles/Code/ClientCode.pdb.bytes");
-            assetImporter2.assetBundleName = "ClientCode.unity3d";
-            AssetDatabase.Refresh();
-            Debug.Log("set assetbundle success!");
-            Debug.Log("build success!");
-            //反射获取当前Game视图，提示编译完成
-            ShowNotification("Build Code Success");
+            //// 设置ab包
+            //AssetImporter assetImporter1 = AssetImporter.GetAtPath("Assets/Bundles/Code/ClientCode.dll.bytes");
+            //assetImporter1.assetBundleName = "ClientCode.unity3d";
+            //AssetImporter assetImporter2 = AssetImporter.GetAtPath("Assets/Bundles/Code/ClientCode.pdb.bytes");
+            //assetImporter2.assetBundleName = "ClientCode.unity3d";
+            //AssetDatabase.Refresh();
+            //Debug.Log("set assetbundle success!");
+            //Debug.Log("build success!");
+            ////反射获取当前Game视图，提示编译完成
+            //ShowNotification("Build Code Success");
         }
 
         public static void ShowNotification(string tips)

@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using UnityEngine;
 
@@ -6,54 +10,65 @@ namespace TheMazeRunner
 {
     public class Launch : MonoBehaviour
     {
-        public const string BuildOutputDir = "./Temp/Bin/Debug";
-        public MethodInfo m_UpdateMethod;
-        public MethodInfo m_FixedUpdateMethod;
-        public MethodInfo m_OnDestoryMethod;
+        [SerializeField]
+        private LaunchSettingSO m_LaunchSettingSO;
+
+        private Action m_ActionUpdate;
+        private Action m_ActionFixedUpdate;
+        private Action m_ActionExit;
         //public const 
 
         void Awake()
         {
             UnityLog.Trace("Unity Awake");
-            //Dictionary<string, UnityEngine.Object> dictionary = AssetsBundleHelper.LoadBundle("code.unity3d");
-            //byte[] assBytes = ((TextAsset)dictionary["Code.dll"]).bytes;
-            //byte[] pdbBytes = ((TextAsset)dictionary["Code.pdb"]).bytes;
-
-            //assembly = Assembly.Load(assBytes, pdbBytes);
-
-
-            //Dictionary<string, Type> types = AssemblyHelper.GetAssemblyTypes(typeof(Game).Assembly, this.assembly);
-            //Game.EventSystem.Add(types);
-
-            //IStaticMethod start = new MonoStaticMethod(assembly, "ET.Client.Entry", "Start");
-            //start.Run();
-
-            //TextAsset clientDll = Resources.Load<TextAsset>("Client.dll");
-            //TextAsset clientPdb = Resources.Load<TextAsset>("Client.pdb");
-            //Assembly assembly = Assembly.Load(clientDll.bytes, clientPdb.bytes);
-            byte[] assBytes = File.ReadAllBytes(Path.Combine(BuildOutputDir, "ClientCode.dll"));
-            byte[] pdbBytes = File.ReadAllBytes(Path.Combine(BuildOutputDir, "ClientCode.pdb"));
+#if UNITY_EDITOR
+            byte[] assBytes = File.ReadAllBytes(Path.Combine(m_LaunchSettingSO.BuildOutputDir, $"{m_LaunchSettingSO.DllName}.dll"));
+            byte[] pdbBytes = File.ReadAllBytes(Path.Combine(m_LaunchSettingSO.BuildOutputDir, $"{m_LaunchSettingSO.DllName}.pdb"));
+#else
+            //todolist load Addressable
+#endif
             Assembly assembly = Assembly.Load(assBytes, pdbBytes);
             UnityLog.Init(assembly);
-            
-            MethodInfo method = assembly.GetType("TheMazeRunner.ClientApp").GetMethod("Awake");
-            method.Invoke(null, new object[0]);
 
+            Type[] types = assembly.GetTypes();
+            MethodInfo methodInfo;
+            Action action;
+            for (int i = 0; i < types.Length; i++)
+            {
+                if (types[i].GetInterface("IUpdate") != null)
+                {
+                    methodInfo = types[i].GetMethod("Update");
+                    action = methodInfo.CreateDelegate(typeof(Action), null) as Action;
+                    m_ActionUpdate += action;
+                }
+                if (types[i].GetInterface("IFixedUpdate") != null)
+                {
+                    methodInfo = types[i].GetMethod("FixedUpdate");
+                    action = methodInfo.CreateDelegate(typeof(Action), null) as Action;
+                    m_ActionFixedUpdate += action;
+                }
+            }
+            string[] awakeType = m_LaunchSettingSO.AwakeType;
+            for (int i = 0; i < awakeType.Length; i++)
+            {
+                methodInfo = assembly.GetType(awakeType[i]).GetMethod("Awake");
+                methodInfo.Invoke(null, new object[0]);
+            }
         }
 
         void Update()
         {
-            
+            m_ActionUpdate();
         }
 
         void FixedUpdate()
         {
-            
+            m_ActionFixedUpdate();
         }
 
         void OnDestroy()
         {
-            
+            //m_ActionExit();
         }
     }
 }

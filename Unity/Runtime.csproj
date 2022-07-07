@@ -56,12 +56,14 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Runtime\Log\UnityLog.cs" />
     <Compile Include="Assets\Scripts\Runtime\Component\TransformExpand.cs" />
     <Compile Include="Assets\Scripts\Runtime\Test\AutoLinkComponentMonoTest.cs" />
     <Compile Include="Assets\Scripts\Runtime\Launch\Launch.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Launch\LaunchSettingSO.cs" />
+    <Compile Include="Assets\Scripts\Runtime\Define\Define.cs" />
     <Compile Include="Assets\Scripts\Runtime\Attribute\AutoGenSOAttribute.cs" />
     <Compile Include="Assets\Scripts\Runtime\Component\AutoLinkComponentMono.cs" />
-    <Compile Include="Assets\Scripts\Runtime\Log\UnityLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Runtime\Runtime.asmdef" />

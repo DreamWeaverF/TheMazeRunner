@@ -44,6 +44,7 @@ namespace TheMazeRunner
         }
     }
 
+    [AttributeUsage(AttributeTargets.Field)]
     public class AutoLinkFieldAttribute : Attribute
     {
 

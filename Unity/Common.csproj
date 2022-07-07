@@ -55,7 +55,9 @@
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Codes\Common\Boar\" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">

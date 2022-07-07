@@ -26,5 +26,9 @@ namespace TheMazeRunner
             //m_TextUserName.text = m_DefaultStingValue;
             //m_TextPassword.text = $"{m_DefaultIntValue}";
         }
+        public void Update()
+        {
+
+        }
     }
 }

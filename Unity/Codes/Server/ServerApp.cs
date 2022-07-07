@@ -4,7 +4,7 @@ namespace TheMazeRunner
     {
         public static void Awake()
         {
-
+            LogHelper.Trace("Server Awake");
         }
 
         public static void Update()

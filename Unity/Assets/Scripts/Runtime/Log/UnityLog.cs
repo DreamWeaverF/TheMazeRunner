@@ -10,31 +10,59 @@ namespace TheMazeRunner
     {
         public static void Init(Assembly assembly)
         {
-            FieldInfo logActionField = assembly.GetType("TheMazeRunner.LogHelper").GetField("ActionLogTrace");
-            Action<string> logAction = logActionField.GetValue(null) as Action<string>;
-            logAction += Trace;
+            Type logHelperType = assembly.GetType("TheMazeRunner.LogHelper");
+
+            FieldInfo actionField = logHelperType.GetField("ActionLogTrace");
+            Action<string> action = actionField.GetValue(null) as Action<string>;
+            action += Trace;
+            actionField.SetValue(null, action);
+
+            actionField = logHelperType.GetField("ActionLogDebug");
+            action = actionField.GetValue(null) as Action<string>;
+            action += Debug;
+            actionField.SetValue(null, action);
+
+            actionField = logHelperType.GetField("ActionLogInfo");
+            action = actionField.GetValue(null) as Action<string>;
+            action += Info;
+            actionField.SetValue(null, action);
+
+            actionField = logHelperType.GetField("ActionLogWarning");
+            action = actionField.GetValue(null) as Action<string>;
+            action += Warning;
+            actionField.SetValue(null, action);
+
+            actionField = logHelperType.GetField("ActionLogError");
+            action = actionField.GetValue(null) as Action<string>;
+            action += Error;
+            actionField.SetValue(null, action);
+
+            actionField = logHelperType.GetField("ActionLogFatal");
+            action = actionField.GetValue(null) as Action<string>;
+            action += Fatal;
+            actionField.SetValue(null, action);
         }
-        public static void Trace(string msg)
+        internal static void Trace(string msg)
         {
             UnityEngine.Debug.Log(msg);
         }
-        public static void Debug(string msg)
+        internal static void Debug(string msg)
         {
             UnityEngine.Debug.Log(msg);
         }
-        public static void Info(string msg)
+        internal static void Info(string msg)
         {
             UnityEngine.Debug.Log(msg);
         }
-        public static void Warning(string msg)
+        internal static void Warning(string msg)
         {
             UnityEngine.Debug.LogWarning(msg);
         }
-        public static void Error(string msg)
+        internal static void Error(string msg)
         {
             UnityEngine.Debug.LogError(msg);
         }
-        public static void Fatal(string message)
+        internal static void Fatal(string message)
         {
             UnityEngine.Debug.LogError(message);
         }
