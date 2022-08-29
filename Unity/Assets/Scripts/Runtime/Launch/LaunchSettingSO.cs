@@ -41,9 +41,9 @@ namespace TheMazeRunner
             m_CodeDllPathDicts.Add(LaunchType.Server, new string[] { "Codes/Common/", "Codes/Server/" });
 
             m_AwakeTypeDicts.Clear();
-            m_AwakeTypeDicts.Add(LaunchType.Combine, new string[] { "TheMazeRunner.ServerApp","TheMazeRunner.ClientApp" });
-            m_AwakeTypeDicts.Add(LaunchType.Client, new string[] { "TheMazeRunner.ClientApp" });
-            m_AwakeTypeDicts.Add(LaunchType.Server, new string[] { "TheMazeRunner.ServerApp" });
+            m_AwakeTypeDicts.Add(LaunchType.Combine, new string[] { "ServerApp","ClientApp" });
+            m_AwakeTypeDicts.Add(LaunchType.Client, new string[] { "ClientApp" });
+            m_AwakeTypeDicts.Add(LaunchType.Server, new string[] { "ServerApp" });
         }
         public void OnBeforeSerialize()
         {

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TheMazeRunner
 {
-    public interface IUpdate
+    public class BaseAttribute : Attribute
     {
-        void Update();
+        
     }
 }

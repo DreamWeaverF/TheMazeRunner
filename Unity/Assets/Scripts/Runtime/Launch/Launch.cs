@@ -16,7 +16,6 @@ namespace TheMazeRunner
         private Action m_ActionUpdate;
         private Action m_ActionFixedUpdate;
         private Action m_ActionExit;
-        //public const 
 
         void Awake()
         {
@@ -28,31 +27,23 @@ namespace TheMazeRunner
             //todolist load Addressable
 #endif
             Assembly assembly = Assembly.Load(assBytes, pdbBytes);
-            UnityLog.Init(assembly);
 
-            Type[] types = assembly.GetTypes();
-            MethodInfo methodInfo;
-            Action action;
-            for (int i = 0; i < types.Length; i++)
-            {
-                if (types[i].GetInterface("IUpdate") != null)
-                {
-                    methodInfo = types[i].GetMethod("Update");
-                    action = methodInfo.CreateDelegate(typeof(Action), null) as Action;
-                    m_ActionUpdate += action;
-                }
-                if (types[i].GetInterface("IFixedUpdate") != null)
-                {
-                    methodInfo = types[i].GetMethod("FixedUpdate");
-                    action = methodInfo.CreateDelegate(typeof(Action), null) as Action;
-                    m_ActionFixedUpdate += action;
-                }
-            }
+            string spaceName = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+            UnityLog.Init(assembly, spaceName);
+
+            Type type = assembly.GetType($"{spaceName}.AssembleHelper");
+            MethodInfo methodInfo = type.GetMethod("Awake");
+            methodInfo.Invoke(null, new object[0]);
+            methodInfo = type.GetMethod("Update");
+            m_ActionUpdate += methodInfo.CreateDelegate(typeof(Action)) as Action;
+            methodInfo = type.GetMethod("FixedUpdate");
+            m_ActionFixedUpdate += methodInfo.CreateDelegate(typeof(Action)) as Action;
             string[] awakeType = m_LaunchSettingSO.AwakeType;
             for (int i = 0; i < awakeType.Length; i++)
             {
-                methodInfo = assembly.GetType(awakeType[i]).GetMethod("Awake");
-                methodInfo.Invoke(null, new object[0]);
+                type = assembly.GetType($"{spaceName}.{awakeType[i]}");
+                methodInfo = type.GetMethod("Awake");
+                methodInfo.Invoke(Activator.CreateInstance(type), new object[0]);
             }
         }
 

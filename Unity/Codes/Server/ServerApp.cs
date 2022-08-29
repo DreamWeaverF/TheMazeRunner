@@ -1,18 +1,18 @@
 namespace TheMazeRunner
 {
-    public static class ServerApp
+    public class ServerApp
     {
-        public static void Awake()
+        public void Awake()
         {
             LogHelper.Trace("Server Awake");
         }
 
-        public static void Update()
+        public void Update()
         {
 
         }
 
-        public static void Destory()
+        public void Destory()
         {
 
         }

@@ -8,9 +8,9 @@ namespace TheMazeRunner
 {
     public static class UnityLog
     {
-        public static void Init(Assembly assembly)
+        public static void Init(Assembly assembly, string spaceName)
         {
-            Type logHelperType = assembly.GetType("TheMazeRunner.LogHelper");
+            Type logHelperType = assembly.GetType($"{spaceName}.LogHelper");
 
             FieldInfo actionField = logHelperType.GetField("ActionLogTrace");
             Action<string> action = actionField.GetValue(null) as Action<string>;

@@ -6,16 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheMazeRunner
 {
-    public class TestUpdate : IUpdate,IFixedUpdate
+    [AttributeUsage(AttributeTargets.Method)]
+    public class FixedUpdateMethodAttribute : BaseAttribute
     {
-        public void FixedUpdate()
-        {
 
-        }
-
-        public void Update()
-        {
-
-        }
     }
 }
