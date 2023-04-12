@@ -13,3 +13,9 @@
 /Code/Temp
 /Code/.vs
 /Unity/.vs
+/Server/.vs
+/Server/bin
+/Server/obj
+/Unity/UserSettings
+/Unity/.vsconfig
+/Unity/Unity.sln
